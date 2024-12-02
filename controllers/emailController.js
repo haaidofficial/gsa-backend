@@ -1,6 +1,106 @@
 const sendEmail = require('../utils/mailer');  // Import the mailer utility
 
 const htmlBody = (name, email, contactNo, message) => {
+  return `<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+      }
+
+      .backgroundBg {
+        background-color: #eeeeee;
+        padding: 30px 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        text-align: center;
+        padding-bottom: 20px;
+      }
+      .header h1 {
+        color: #333;
+      }
+      .content {
+        margin-bottom: 20px;
+      }
+      .content p {
+        font-size: 16px;
+        color: #555;
+      }
+
+      .sub-hd-text{
+        text-align: center;
+      }
+
+      .footer {
+        text-align: center;
+        font-size: 14px;
+        color: #777;
+        padding-top: 20px;
+      }
+      .footer p {
+        margin: 0;
+      }
+      .details {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+      }
+      .details p {
+        margin: 5px 0;
+      }
+      .label {
+        font-weight: bold;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="backgroundBg">
+      <div>
+        <div class="container">
+          <div class="header">
+            <h1>New Customer Inquiry Received</h1>
+          </div>
+
+          <div class="content">
+            <p class="sub-hd-text">
+              A new contact form submission has been received. Details are as
+              follows:
+            </p>
+          </div>
+
+          <div class="details">
+            <p><span class="label">Name:</span> <p>${name}</p> <br/>
+            <p><span class="label">Email:</span> <p>${email}</p> <br/>
+            <p><span class="label">Contact No:</span> <p>${contactNo}</p><br/>
+            <p><span class="label">Message:</span>
+            ${message}</p>
+          </div>
+
+          <div class="footer">
+            <p>Thank you for your attention.</p>
+            <p>If you did not request this message, please disregard it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+`
   return ` <html>
       <head>
         <style>
