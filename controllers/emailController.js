@@ -1,6 +1,11 @@
 const sendEmail = require('../utils/mailer');  // Import the mailer utility
 
-const htmlBody = (name, email, contactNo, message) => {
+const htmlBody = (name, email, contactNo, message, referrerSource) => {
+  let referrer = '';
+  if (referrerSource) {
+    referrer = `<p><span class="label">Referrer Source:</span></p>
+            <p>${referrerSource}</p>`;
+  }
   return `<html>
   <head>
     <style>
@@ -84,11 +89,12 @@ const htmlBody = (name, email, contactNo, message) => {
           </div>
 
           <div class="details">
-            <p><span class="label">Name:</span> <p>${name}</p> <br/>
-            <p><span class="label">Email:</span> <p>${email}</p> <br/>
-            <p><span class="label">Contact No:</span> <p>${contactNo}</p><br/>
-            <p><span class="label">Message:</span>
-            ${message}</p>
+            <p><span class="label">Name:</span></p> <p>${name}</p> <br/>
+            <p><span class="label">Email:</span></p> <p>${email}</p> <br/>
+            <p><span class="label">Contact No:</span></p> <p>${contactNo}</p><br/>
+            <p><span class="label">Message:</span></p>
+            <p>${message}</p><br/>
+            ${referrer}
           </div>
 
           <div class="footer">
@@ -186,7 +192,7 @@ const htmlBody = (name, email, contactNo, message) => {
 }
 
 const handleContactForm = async (req, res) => {
-  const { name, email, contactNo, message } = req.body;
+  const { name, email, contactNo, message, referrer } = req.body;
 
   // Validate Name (non-empty and length validation)
   if (!name || name.trim().length < 2) {
@@ -218,7 +224,7 @@ const handleContactForm = async (req, res) => {
   const emailSubject = `New Message from ${name}`;
 
 
-  const emailBody = htmlBody(name, email, contactNo, message);
+  const emailBody = htmlBody(name, email, contactNo, message, referrer);
 
   try {
     // Send email to the company's email address (replace with actual email)
