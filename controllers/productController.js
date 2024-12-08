@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
 const slugify = require('slugify');
+const { validationResult } = require('express-validator');
 
 const createSlug = (title) => {
   return slugify(title, {
@@ -55,6 +56,7 @@ const upload = multer({
 
 const createProduct = async (req, res) => {
   try {
+
     const files = req.files; // Handle multiple image uploads
     if (!files || files.length === 0) {
       return res.status(400).json({ error: 'At least one image is required' });
@@ -98,7 +100,7 @@ const getProductByPageUrl = async (req, res) => {
   try {
     const pageUrl = req.params.pageUrl;
     const product = await Product.findOne({ pageUrl, isDeleted: false });
-    
+
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
