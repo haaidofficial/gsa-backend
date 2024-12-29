@@ -78,7 +78,7 @@ const htmlBody = (name, email, contactNo, message, referrerSource) => {
       <div>
         <div class="container">
           <div class="header">
-            <h1>New Customer Inquiry Received</h1>
+            <h1>New Inquiry Received</h1>
           </div>
 
           <div class="content">
