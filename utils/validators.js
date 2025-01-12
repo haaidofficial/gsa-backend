@@ -31,7 +31,7 @@ const validateEnquiry = [
         .trim()
         .escape()
         .notEmpty().withMessage('Message is required')
-        .isLength({ min: 10 }).withMessage('Message must be at least 10 characters'),
+        .isLength({ min: 0 }).withMessage('Message must be at least 10 characters'),
 ];
 
 const validateContactForm = [
@@ -56,7 +56,7 @@ const validateContactForm = [
         .trim()
         .escape()
         .notEmpty().withMessage('Message is required')
-        .isLength({ min: 10 }).withMessage('Message must be at least 10 characters'),
+        .isLength({ min: 0 }).withMessage('Message must be at least 10 characters'),
 
     body('referrer')
         .isString().withMessage('Referrer must be a string')
@@ -150,7 +150,7 @@ const updateProductValidation = [
     body('description')
         .trim()
         .optional() // Make description optional for update
-        .isLength({ min: 10 }).withMessage('Description must be at least 10 characters long')   ,
+        .isLength({ min: 10 }).withMessage('Description must be at least 10 characters long'),
 
     // Validate the removedImages field (must be a valid JSON array)
     body('removedImages')
