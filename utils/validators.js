@@ -34,6 +34,31 @@ const validateEnquiry = [
         .isLength({ min: 0 }).withMessage('Message must be at least 10 characters'),
 ];
 
+const validateNormalEnquiry = [
+    body('name')
+        .trim()
+        .escape()
+        .notEmpty().withMessage('Name is required')
+        .isLength({ min: 3 }).withMessage('Name must be at least 3 characters'),
+
+    body('email')
+        .trim()
+        .normalizeEmail()
+        .notEmpty().withMessage('Email is required')
+        .isEmail().withMessage('Invalid email address'),
+
+    body('contactNo')
+        .trim()
+        .escape()
+        .matches(/^[0-9]{10}$/).withMessage('Contact number must be 10 digits'),
+
+    body('message')
+        .trim()
+        .escape()
+        .notEmpty().withMessage('Message is required')
+        .isLength({ min: 0 }).withMessage('Message must be at least 10 characters'),
+];
+
 const validateContactForm = [
     body('name')
         .trim()
@@ -210,6 +235,7 @@ const validatePageUrl = param('pageUrl')
 
 module.exports = {
     validateEnquiry,
+    validateNormalEnquiry,
     validateContactForm,
     validateUpdateAccount,
     validateLogin,

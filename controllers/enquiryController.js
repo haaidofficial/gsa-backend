@@ -37,6 +37,32 @@ exports.submitEnquiry = async (req, res) => {
 };
 
 
+exports.submitNormalEnquiry = async (req, res) => {
+    try {
+
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const { name, email, contactNo, message } = req.body;
+
+        // Create the enquiry
+        const enquiry = await Enquiry.create({
+            name,
+            email,
+            contactNo,
+            message,
+        });
+
+        res.status(201).json({ message: 'Enquiry submitted successfully', enquiry });
+    } catch (error) {
+        console.error('Error submitting enquiry:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 exports.getAllEnquiries = async (req, res) => {
     try {
         const { page = 1, limit = 10 } = req.query;
